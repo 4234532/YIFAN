@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }} | MEYIFAN</title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container"><a href="/" class="logo">MEYIFAN</a></div>
+    </nav>
+    <div class="container">
+        <article class="widget" style="padding: 50px; margin-top: 40px;">
+            <h1>{{ page.title }}</h1>
+            <div class="post-meta">{{ page.date | date: "%Y-%m-%d" }}</div>
+            <div class="post-body">
+                {{ content }}  </div>
+        </article>
+    </div>
+</body>
+</html>
