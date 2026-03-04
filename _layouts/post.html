@@ -13,9 +13,10 @@
     </nav>
 
     <div class="container">
-        <article class="widget" style="padding: 50px; margin-top: 40px; border-radius: 12px;">
+        <article class="widget" style="padding: 50px; margin-top: 40px; border-radius: 12px; background-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
             <h1>{{ page.title }}</h1> 
             <div class="post-meta" style="color: #b2bec3; margin-bottom: 20px;">{{ page.date | date: "%Y-%m-%d" }}</div> 
+            
             <div class="post-body" style="line-height: 1.8;">
                 {{ content }} 
             </div>
@@ -26,41 +27,61 @@
         </article>
 
         <div id="cusdis_wrapper" style="
-    margin-top: 50px; 
-    margin-bottom: 60px; 
-    padding: 30px; 
-    background-color: #fff; 
-    border-radius: 12px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    height: auto;
-    overflow: visible;
-">
-    <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
+            margin-top: 50px; 
+            margin-bottom: 60px; 
+            padding: 30px; 
+            background-color: #fff; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: auto;
+            overflow: visible;
+        ">
+            <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
 
-    <div id="cusdis_thread"
-        data-host="https://cusdis.com"
-        data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
-        data-page-id="{{ page.url }}" 
-        data-page-url="{{ page.url | absolute_url }}"
-        data-page-title="{{ page.title }}"
-        style="width: 100%; border: none;"
-    ></div>
-</div>
+            <div id="cusdis_thread"
+                data-host="https://cusdis.com"
+                data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
+                data-page-id="{{ page.url }}" 
+                data-page-url="{{ page.url | absolute_url }}"
+                data-page-title="{{ page.title }}"
+                style="width: 100%; min-height: 200px; overflow: hidden;"
+            ></div>
+        </div>
 
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+        <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
-<script>
-  window.addEventListener('message', e => {
-    // 监听 Cusdis 发出的高度改变信号
-    if (e.data && e.data.type === 'resize') {
-      const iframe = document.querySelector('#cusdis_thread iframe');
-      if (iframe) {
-        // 将 iframe 的高度设置为内容的实际高度
-        iframe.style.height = e.data.data + 'px';
-      }
-    }
-  });
-</script>
+        <script>
+          // 方案 A：监听 Cusdis 内部发出的高度调整信号
+          window.addEventListener('message', e => {
+            if (e.data && e.data.type === 'resize') {
+              const iframe = document.querySelector('#cusdis_thread iframe');
+              if (iframe) {
+                iframe.style.height = e.data.data + 'px';
+                iframe.setAttribute('scrolling', 'no'); // 禁用滚动属性
+                iframe.style.overflow = 'hidden';      // 禁用溢出
+              }
+            }
+          });
+
+          // 方案 B：实时观察 iframe 的生成，并在第一时间“杀掉”滚动条
+          const observer = new MutationObserver(() => {
+            const iframe = document.querySelector('#cusdis_thread iframe');
+            if (iframe) {
+              iframe.setAttribute('scrolling', 'no');
+              iframe.style.overflow = 'hidden';
+              iframe.style.width = '100%';
+              // 初始高度同步尝试
+              if (iframe.contentWindow) {
+                 iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+              }
+            }
+          });
+
+          const target = document.getElementById('cusdis_thread');
+          if (target) {
+            observer.observe(target, { childList: true });
+          }
+        </script>
 
     </div>
 </body>
