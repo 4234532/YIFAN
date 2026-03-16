@@ -56,10 +56,48 @@ layout: null
 </main>
 
         <aside class="sidebar">
-            <div class="widget about-me" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-    <img src="avatar.jpg" alt="博主头像" class="avatar" style="display: block; margin: 0 auto 15px auto;">
-    <h4 style="margin: 0; width: 100%;">孟逸凡</h4>
-    <p>这里记录真实的我。</p>
+            <div class="widget about-me" style="
+    text-align: center; 
+    padding: 25px; 
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border-radius: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+">
+    <img src="{{ site.baseurl }}/avatar.jpg" alt="博主头像" class="avatar" style="
+        width: 85px; 
+        height: 85px; 
+        border-radius: 50%; 
+        object-fit: cover; 
+        margin-bottom: 15px; 
+        border: 3px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    ">
+
+    <h4 style="margin: 0; font-size: 1.25rem; color: #2d3436; letter-spacing: 1px;">孟逸凡</h4>
+    <p style="color: #0984e3; font-weight: 600; font-size: 0.8rem; margin: 5px 0 15px 0; text-transform: uppercase;">
+        Philosophy · Archaeology · Dev
+    </p>
+
+    <p style="color: #636e72; font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 20px;">
+        淮北师范大学历史系本科生，沉浸于<strong>不切实际的幻想</strong>，我尚且不知道自己可以做什么
+    </p>
+
+    <a href="{{ site.baseurl }}/about/" style="
+        display: inline-block; 
+        padding: 6px 20px; 
+        background: #2d3436; 
+        color: #fff; 
+        text-decoration: none; 
+        border-radius: 20px; 
+        font-size: 0.8rem; 
+        transition: 0.3s;
+    " onmouseover="this.style.background='#0984e3'" onmouseout="this.style.background='#2d3436'">
+        了解更多 →
+    </a>
 </div>
             
             <div class="widget categories">
