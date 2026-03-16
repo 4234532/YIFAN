@@ -48,42 +48,37 @@
             </div>
         </article>
 
-        <div id="cusdis_wrapper" style="
-            margin-top: 50px; 
-            margin-bottom: 60px; 
-            padding: 30px; 
-            background-color: #fff; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        ">
-            <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
+       <div id="cusdis_wrapper" style="margin-top: 50px; margin-bottom: 60px; padding: 30px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
 
-            <div id="cusdis_thread"
-                data-host="https://cusdis.com"
-                data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
-                data-page-id="{{ page.url }}" 
-                data-page-url="{{ page.url | absolute_url }}"
-                data-page-title="{{ page.title }}"
-                style="width: 100%; min-height: 380px;"
-            ></div>
-        </div>
+    <div id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
+        data-page-id="{{ page.url }}" 
+        data-page-url="{{ page.url | absolute_url }}"
+        data-page-title="{{ page.title }}"
+        style="width: 100%; min-height: 400px;"
+    ></div>
+</div>
 
-        <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
-        <script>
-          window.addEventListener('message', function(e) {
-            try {
-              const msg = JSON.parse(e.data);
-              if (msg.from === 'cusdis' && msg.event === 'resize') {
-                const iframe = document.querySelector('#cusdis_thread iframe');
-                if (iframe) {
-                  const newHeight = msg.data + 30;
-                  iframe.style.setProperty('height', newHeight + 'px', 'important');
-                }
-              }
-            } catch (err) {}
-          });
-        </script>
+<script>
+  // 核心修正：监听 Cusdis 高度变化并强制同步，确保显示完整
+  window.addEventListener('message', e => {
+    try {
+      const msg = JSON.parse(e.data);
+      if (msg.from === 'cusdis' && msg.event === 'resize') {
+        const iframe = document.querySelector('#cusdis_thread iframe');
+        if (iframe) {
+          // 在内容高度基础上增加 40px 的缓冲余量
+          iframe.style.setProperty('height', (msg.data + 40) + 'px', 'important');
+        }
+      }
+    } catch (err) {}
+  });
+</script>
+        
     </div>
 </body>
 </html>
