@@ -6,143 +6,216 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="孟逸凡的个人博客，记录历史、文化遗产与生活的思考">
+    <meta name="author" content="孟逸凡">
+    <meta property="og:title" content="YIFAN | 我的个人空间">
+    <meta property="og:description" content="记录生活，以及那些稍纵即逝的瞬间。">
+    <meta property="og:type" content="website">
     <title>我的个人空间 | 探索与记录</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="icon" href="{{ site.baseurl }}/favicon.ico" type="image/x-icon">
+
+    <!-- 性能优化：预连接 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
 </head>
 <body>
 
+    <!-- ===== 导航栏 ===== -->
     <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">YIFAN</a>
-            <ul class="nav-links">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">文章分类</a></li>
-                <li><a href="#">摄影</a></li>
-                <li><a href="#">关于我</a></li>
+        <div class="container navbar-inner">
+            <a href="{{ site.baseurl }}/" class="logo">YIFAN</a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="{{ site.baseurl }}/">首页</a></li>
+                <li><a href="{{ site.baseurl }}/categories/">文章分类</a></li>
+                <li><a href="{{ site.baseurl }}/photography/">摄影</a></li>
+                <li><a href="{{ site.baseurl }}/about/">关于我</a></li>
             </ul>
+
+            <!-- 移动端汉堡菜单 -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
+    <!-- ===== Hero 区 ===== -->
     <header class="hero">
         <div class="container">
-            <h2>欢迎来到我的思想花园</h2>
-            <p>记录生活，以及那些稍纵即逝的瞬间。</p>
+            <h1 class="hero-title">欢迎来到我的思想花园</h1>
+            <p class="hero-sub">记录生活，以及那些稍纵即逝的瞬间。</p>
         </div>
     </header>
 
+    <!-- ===== 主体布局 ===== -->
     <div class="container main-layout">
-       <main class="post-feed">
-    {% for post in site.posts %}
-    <article class="post-card">
-        <div class="post-image" style="background-image: url('{{ post.image | default: "https://images.unsplash.com/photo-1490750967868-88aa4486c946" }}'); height: 200px; background-size: cover;"></div>
-        
-        <div class="post-content" style="padding: 20px;">
-            <span class="category" style="color: #0984e3; font-size: 0.8rem; font-weight: bold;">{{ post.category | default: "随笔" }}</span>
-            <h3 style="margin: 10px 0;">
-                <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: #2d3436;">{{ post.title }}</a>
-            </h3>
-            <p style="color: #636e72; font-size: 0.9rem;">{{ post.excerpt | strip_html | truncate: 80 }}</p>
-            
-            <div class="post-meta" style="margin-top: 15px; font-size: 0.8rem; color: #b2bec3; display: flex; justify-content: space-between;">
-                <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                <a href="{{ post.url | relative_url }}" style="color: #2d3436; font-weight: bold; text-decoration: none;">阅读全文 →</a>
+
+        <!-- 文章列表 -->
+        <main class="post-feed">
+
+            {% if site.posts.size == 0 %}
+            <div class="empty-state">
+                <i class="fas fa-feather-alt"></i>
+                <p>暂无文章，敬请期待…</p>
             </div>
-        </div>
-    </article>
-    {% endfor %}
-</main>
+            {% else %}
 
+            {% for post in site.posts %}
+            <article class="post-card">
+                <a href="{{ post.url | relative_url }}" class="post-image-wrap">
+                    <div class="post-image" style="background-image: url('{{ post.image | default: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600" }}')">
+                        <span class="post-category">{{ post.category | default: "随笔" }}</span>
+                    </div>
+                </a>
+                <div class="post-content">
+                    <h3 class="post-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 90 }}</p>
+                    <div class="post-meta">
+                        <span class="post-date">
+                            <i class="far fa-calendar-alt"></i>
+                            {{ post.date | date: "%Y年%m月%d日" }}
+                        </span>
+                        <a href="{{ post.url | relative_url }}" class="read-more">阅读全文 →</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+
+            {% endif %}
+        </main>
+
+        <!-- 侧边栏 -->
         <aside class="sidebar">
-            <div class="widget about-me" style="
-    text-align: center; 
-    padding: 25px; 
-    background: rgba(255, 255, 255, 0.7); 
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px); 
-    border-radius: 15px; 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-">
-    <img src="{{ site.baseurl }}/avatar.jpg" alt="博主头像" class="avatar" style="
-        width: 85px; 
-        height: 85px; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        margin-bottom: 15px; 
-        border: 3px solid #fff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    ">
 
-    <h4 style="margin: 0; font-size: 1.25rem; color: #2d3436; letter-spacing: 1px;">孟逸凡</h4>
-    <p style="color: #0984e3; font-weight: 600; font-size: 0.8rem; margin: 5px 0 15px 0; text-transform: uppercase;">
-        History·Cultural Heritage 
-    </p>
+            <!-- 关于我 -->
+            <div class="widget about-widget">
+                <img src="{{ site.baseurl }}/avatar.jpg" alt="博主头像" class="avatar">
+                <h4 class="author-name">孟逸凡</h4>
+                <p class="author-tag">History · Cultural Heritage</p>
+                <p class="author-bio">
+                    淮北师范大学历史系本科生，沉浸于<strong>不切实际的幻想</strong>，不过我还不知道自己可以做什么。
+                </p>
+                <a href="{{ site.baseurl }}/about/" class="btn-more">了解更多 →</a>
+            </div>
 
-    <p style="color: #636e72; font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 20px;">
-        淮北师范大学历史系本科生，沉浸于<strong>不切实际的幻想</strong>，不过我还不知道自己可以做什么
-    </p>
+            <!-- 搜索框 -->
+            <div class="widget search-widget">
+                <h4 class="widget-title">搜索文章</h4>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="输入关键词…" autocomplete="off">
+                </div>
+                <ul id="search-results" class="search-results"></ul>
+            </div>
 
-    <a href="{{ site.baseurl }}/about/" style="
-        display: inline-block; 
-        padding: 6px 20px; 
-        background: #2d3436; 
-        color: #fff; 
-        text-decoration: none; 
-        border-radius: 20px; 
-        font-size: 0.8rem; 
-        transition: 0.3s;
-    " onmouseover="this.style.background='#0984e3'" onmouseout="this.style.background='#2d3436'">
-        了解更多 →
-    </a>
-</div>
-            
-            <div class="widget categories">
-    <h4>栏目分类</h4>
-    <ul>
-        {% assign categories = site.categories | sort %}
-        {% for category in categories %}
-        {% assign category_name = category | first %}
-        {% assign posts_in_category = category | last %}
-        <li>
-            <a href="#">
-                {{ category_name }} ({{ posts_in_category.size }})
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
+            <!-- 栏目分类 -->
+            <div class="widget categories-widget">
+                <h4 class="widget-title">栏目分类</h4>
+                <ul class="category-list">
+                    {% assign categories = site.categories | sort %}
+                    {% for category in categories %}
+                    {% assign category_name = category | first %}
+                    {% assign posts_in_category = category | last %}
+                    <li>
+                        <a href="{{ site.baseurl }}/categories/#{{ category_name | url_encode }}">
+                            <span class="cat-name">{{ category_name }}</span>
+                            <span class="cat-count">{{ posts_in_category.size }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-            <div class="widget social-links">
-                <h4>关注我</h4>
-                <div class="icons-container">
-                    <a href="https://github.com/meyifan" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://weibo.com/u/7901726188" target="_blank" title="微博"><i class="fab fa-weibo"></i></a>
-                    <a href="mailto:2407652400@qq.com" title="邮件"><i class="fas fa-envelope"></i></a>
+            <!-- 社交链接 -->
+            <div class="widget social-widget">
+                <h4 class="widget-title">关注我</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/meyifan" target="_blank" rel="noopener" title="GitHub" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://weibo.com/u/7901726188" target="_blank" rel="noopener" title="微博" class="social-icon">
+                        <i class="fab fa-weibo"></i>
+                    </a>
+                    <a href="mailto:2407652400@qq.com" title="发送邮件" class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
             </div>
+
         </aside>
     </div>
 
-    <footer>
-        <p>&copy; <span id="year"></span> Created by 孟逸凡. Powered by GitHub.</p>
+    <!-- ===== 页脚 ===== -->
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> Created by 孟逸凡 · Powered by GitHub Pages</p>
     </footer>
 
+    <!-- ===== 回到顶部按钮 ===== -->
+    <button id="back-to-top" aria-label="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ===== JS ===== -->
     <script>
+        // 动态年份
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 回到顶部
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 移动端菜单
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks  = document.getElementById('nav-links');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            navToggle.classList.toggle('active', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // 简易搜索（需要在根目录创建 search.json，见 README）
+        const searchInput   = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        let searchData = [];
+
+        fetch('{{ site.baseurl }}/search.json')
+            .then(r => r.ok ? r.json() : [])
+            .then(data => { searchData = data; })
+            .catch(() => {});
+
+        searchInput.addEventListener('input', function () {
+            const q = this.value.trim().toLowerCase();
+            searchResults.innerHTML = '';
+            if (!q || !searchData.length) return;
+
+            const hits = searchData
+                .filter(p => p.title.toLowerCase().includes(q) || (p.excerpt || '').toLowerCase().includes(q))
+                .slice(0, 5);
+
+            if (!hits.length) {
+                searchResults.innerHTML = '<li class="no-result">未找到相关文章</li>';
+                return;
+            }
+            hits.forEach(p => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${p.url}">${p.title}</a>`;
+                searchResults.appendChild(li);
+            });
+        });
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
