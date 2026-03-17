@@ -485,6 +485,83 @@ img { display: block; max-width: 100%; }
 #back-to-top:hover { background: var(--accent); }
 
 /* ------------------------------------------------------------
+   15. 文章正文排版
+   ------------------------------------------------------------ */
+
+/* 段落首行缩进 */
+.post-body p {
+    text-indent: 2em;
+    margin-bottom: 1.2em;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text);
+}
+
+/* 标题不缩进 */
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+    text-indent: 0;
+    font-family: 'Noto Serif SC', serif;
+    margin: 2em 0 0.8em;
+    color: var(--primary);
+}
+.post-body h2 {
+    font-size: 1.4rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+}
+.post-body h3 {
+    font-size: 1.15rem;
+}
+
+/* 引用块（信件/诗句引用）不缩进 */
+.post-body blockquote {
+    text-indent: 0;
+    margin: 1.5em 0;
+    padding: 16px 20px;
+    border-left: 4px solid var(--accent);
+    background: rgba(9, 132, 227, 0.05);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+.post-body blockquote p {
+    text-indent: 0;
+    margin-bottom: 0.4em;
+}
+.post-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 斜体日期落款不缩进 */
+.post-body em {
+    font-style: italic;
+    color: var(--text-light);
+}
+.post-body p:has(> em:only-child) {
+    text-indent: 0;
+    text-align: right;
+    color: var(--text-light);
+    font-size: 0.88rem;
+    margin-top: 0.5em;
+}
+
+/* 分隔线 */
+.post-body hr {
+    border: none;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+    margin: 2.5em 0;
+}
+
+/* 粗体强调 */
+.post-body strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------
    14. 响应式
    ------------------------------------------------------------ */
 
@@ -524,4 +601,149 @@ img { display: block; max-width: 100%; }
     .hero-title { font-size: 1.6rem; }
     .post-image { height: 180px; }
     #back-to-top { bottom: 20px; right: 20px; }
+}
+
+/* ------------------------------------------------------------
+   15. 文章正文排版
+   ------------------------------------------------------------ */
+
+/* 段落首行缩进 */
+.post-body p {
+    text-indent: 2em;
+    margin-bottom: 1.2em;
+}
+
+/* 引用块不缩进（blockquote 本身已有左缩进） */
+.post-body blockquote p {
+    text-indent: 0;
+}
+
+/* 标题不缩进 */
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+    text-indent: 0;
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--primary);
+}
+
+/* 分隔线样式 */
+.post-body hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 2.5em 0;
+}
+
+/* 引用块样式 */
+.post-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 1.5em 0;
+    padding: 0.5em 0 0.5em 1.5em;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* 斜体日期落款 */
+.post-body em {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* 粗体强调 */
+.post-body strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   15. 文章正文排版（post.html 页面）
+   ------------------------------------------------------------ */
+
+/* 段落首行缩进 */
+.post-body p {
+    text-indent: 2em;
+    margin-bottom: 1.2em;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text);
+}
+
+/* 标题不缩进 */
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+    text-indent: 0;
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 2em 0 0.8em;
+    line-height: 1.4;
+}
+.post-body h2 {
+    font-size: 1.4rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+}
+.post-body h3 {
+    font-size: 1.15rem;
+}
+
+/* 引用块（书信/诗句引用）不缩进 */
+.post-body blockquote {
+    text-indent: 0;
+    margin: 1.5em 0;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    background: rgba(9, 132, 227, 0.05);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+.post-body blockquote p {
+    text-indent: 0;
+    margin-bottom: 0.4em;
+}
+.post-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 斜体日期落款不缩进 */
+.post-body em {
+    font-style: italic;
+    color: var(--text-light);
+}
+.post-body p:has(> em:only-child) {
+    text-indent: 0;
+    text-align: right;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: -0.5em;
+}
+
+/* 分隔线 */
+.post-body hr {
+    border: none;
+    border-top: 1px dashed var(--text-light);
+    margin: 2.5em 0;
+    opacity: 0.5;
+}
+
+/* 粗体 */
+.post-body strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* 链接 */
+.post-body a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(9, 132, 227, 0.3);
+    transition: border-color var(--transition);
+}
+.post-body a:hover {
+    border-bottom-color: var(--accent);
 }
