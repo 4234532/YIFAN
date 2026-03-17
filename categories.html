@@ -1,0 +1,50 @@
+---
+layout: null
+title: 文章分类
+permalink: /categories/
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章分类 | YIFAN</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container navbar-inner">
+            <a href="{{ site.baseurl }}/" class="logo">YIFAN</a>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 40px; margin-bottom: 60px;">
+        <h2 style="font-family: 'Noto Serif SC', serif; margin-bottom: 30px;">文章分类</h2>
+
+        {% assign categories = site.categories | sort %}
+        {% for category in categories %}
+        {% assign category_name = category | first %}
+        {% assign posts_in_category = category | last %}
+
+        <div id="{{ category_name }}" class="widget" style="margin-bottom: 30px;">
+            <h3 class="widget-title">{{ category_name }} ({{ posts_in_category.size }})</h3>
+            <ul style="margin-top: 10px;">
+                {% for post in posts_in_category %}
+                <li style="padding: 10px 0; border-bottom: 1px dotted rgba(0,0,0,0.08); display: flex; justify-content: space-between;">
+                    <a href="{{ post.url | relative_url }}" style="color: var(--text-muted); transition: color 0.25s;">
+                        {{ post.title }}
+                    </a>
+                    <span style="color: var(--text-light); font-size: 0.85rem;">{{ post.date | date: "%Y-%m-%d" }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% endfor %}
+
+        <a href="{{ site.baseurl }}/" style="color: var(--accent); font-weight: bold;">← 返回首页</a>
+    </div>
+
+</body>
+</html>
