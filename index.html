@@ -21,6 +21,20 @@ layout: null
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
+    <style>
+        /* 无封面图文章的分类标签 */
+        .post-category-bare {
+            display: inline-block;
+            margin: 20px 20px 0;
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            background: #f0f4ff;
+            color: #0984e3;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+    </style>
 </head>
 <body>
 
@@ -68,11 +82,15 @@ layout: null
 
             {% for post in site.posts %}
             <article class="post-card">
+                {% if post.image %}
                 <a href="{{ post.url | relative_url }}" class="post-image-wrap">
-                   <div class="post-image" style="background-image: url('{% if post.image %}{{ post.image | prepend: site.baseurl }}{% else %}https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600{% endif %}')">
+                    <div class="post-image" style="background-image: url('{{ post.image | prepend: site.baseurl }}')">
                         <span class="post-category">{{ post.category | default: "随笔" }}</span>
                     </div>
                 </a>
+                {% else %}
+                <div class="post-category-bare">{{ post.category | default: "随笔" }}</div>
+                {% endif %}
                 <div class="post-content">
                     <h3 class="post-title">
                         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
