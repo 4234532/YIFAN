@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ page.title }} | YIFAN</title> 
+    
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <script defer src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_dc3b5f7c423ab1c7dfcb42f383771e"></script>
+    <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
     <link rel="stylesheet" href="{{ '/style.css' | relative_url }}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -12,18 +16,18 @@
         /* 移动端专属样式优化 */
         @media (max-width: 768px) {
             .widget {
-                padding: 20px !important; /* 手机端缩小内边距，给文字更多空间 */
+                padding: 20px !important;
                 margin-top: 20px !important;
             }
             .post-body {
-                font-size: 16px !important; /* 强制手机端正文字号，看得更清楚 */
+                font-size: 16px !important;
                 line-height: 1.6;
             }
             h1 {
-                font-size: 1.5rem !important; /* 缩小手机端标题字号 */
+                font-size: 1.5rem !important;
             }
             #cusdis_wrapper {
-                padding: 15px !important; /* 缩小评论区边距 */
+                padding: 15px !important;
                 margin-top: 30px !important;
             }
         }
@@ -40,41 +44,39 @@
         <article class="widget" style="padding: 50px; margin-top: 40px; border-radius: 12px; background-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
             <h1>{{ page.title }}</h1> 
             <div class="post-meta" style="color: #b2bec3; margin-bottom: 20px; display: flex; gap: 20px; align-items: center;">
-    <span>{{ page.date | date: "%Y-%m-%d" }}</span>
-    <span>
-        <i class="fas fa-eye" style="margin-right: 4px;"></i>
-        <span id="busuanzi_value_page_pv">--</span> 次阅读
-    </span>
-</div>
+                <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+                <span>
+                    <i class="fas fa-eye" style="margin-right: 4px;"></i>
+                    <span id="busuanzi_value_page_pv">--</span> 次阅读
+                </span>
+            </div>
             
             <div class="post-body" style="line-height: 1.8;">
                 {{ content }} 
+                
                 <div class="like-container" style="margin: 40px 0; display: flex; justify-content: center;">
-    <div class="glass-like-card" style="
-        padding: 20px 40px;
-        background: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        text-align: center;
-    ">
-        <p style="margin-bottom: 15px; font-size: 0.9rem; color: #636e72; font-family: 'Noto Serif SC', serif;">
-            喜欢：
-        </p>
-        
-        <div 
-          data-lyket-type="like" 
-          data-lyket-id="{{ page.url }}" 
-          data-lyket-namespace="blog"
-          data-lyket-template="twitter"
-          data-lyket-color="#c0392b"
-        ></div>
-    </div>
-</div>
-
-<script src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_dc3b5f7c423ab1c7dfcb42f383771e"></script>
+                    <div class="glass-like-card" style="
+                        padding: 20px 40px;
+                        background: rgba(255, 255, 255, 0.5);
+                        backdrop-filter: blur(10px);
+                        -webkit-backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                        border-radius: 16px;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                        text-align: center;
+                    ">
+                        <p style="margin-bottom: 15px; font-size: 0.9rem; color: #636e72; font-family: 'Noto Serif SC', serif;">
+                            喜欢：
+                        </p>
+                        <div 
+                          data-lyket-type="like" 
+                          data-lyket-id="{{ page.title | slugify }}" 
+                          data-lyket-namespace="blog"
+                          data-lyket-template="twitter"
+                          data-lyket-color="#c0392b"
+                        ></div>
+                    </div>
+                </div>
             </div>
             
             <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
@@ -83,35 +85,16 @@
         </article>
 
        <div id="cusdis_wrapper" style="margin-top: 50px; margin-bottom: 60px; padding: 30px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-    <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
+            <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
 
-    <div id="cusdis_thread"
-        data-host="https://cusdis.com"
-        data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
-        data-page-id="{{ page.url }}" 
-        data-page-url="{{ page.url | absolute_url }}"
-        data-page-title="{{ page.title }}"
-        style="width: 100%; min-height: 400px;"
-    ></div>
-</div>
-
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
-<script>
-  // 核心修正：监听 Cusdis 高度变化并强制同步，确保显示完整
-  window.addEventListener('message', e => {
-    try {
-      const msg = JSON.parse(e.data);
-      if (msg.from === 'cusdis' && msg.event === 'resize') {
-        const iframe = document.querySelector('#cusdis_thread iframe');
-        if (iframe) {
-          // 在内容高度基础上增加 40px 的缓冲余量
-          iframe.style.setProperty('height', (msg.data + 40) + 'px', 'important');
-        }
-      }
-    } catch (err) {}
-  });
-</script>
+            <div id="cusdis_thread"
+                data-host="https://cusdis.com"
+                data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
+                data-page-id="{{ page.title | slugify }}" 
+                data-page-url="{{ site.url }}{{ page.url }}"
+                data-page-title="{{ page.title }}"
+            ></div>
+        </div>
         
     </div>
 </body>
