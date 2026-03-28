@@ -6,8 +6,6 @@
     <title>{{ page.title }} | YIFAN</title> 
     
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <script defer src="https://unpkg.com/@lyket/widget@latest/dist/lyket.js?apiKey=pt_dc3b5f7c423ab1c7dfcb42f383771e"></script>
-    <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
     <link rel="stylesheet" href="{{ '/style.css' | relative_url }}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,10 +24,29 @@
             h1 {
                 font-size: 1.5rem !important;
             }
-            #cusdis_wrapper {
+            .giscus-wrapper {
                 padding: 15px !important;
                 margin-top: 30px !important;
             }
+        }
+
+        /* Giscus 评论区样式 */
+        .giscus-wrapper {
+            margin-top: 50px;
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .giscus-wrapper h3 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #2d3436;
+            font-size: 1.3rem;
+        }
+        .giscus {
+            width: 100%;
         }
     </style>
 </head>
@@ -53,30 +70,6 @@
             
             <div class="post-body" style="line-height: 1.8;">
                 {{ content }} 
-                
-                <div class="like-container" style="margin: 40px 0; display: flex; justify-content: center;">
-                    <div class="glass-like-card" style="
-                        padding: 20px 40px;
-                        background: rgba(255, 255, 255, 0.5);
-                        backdrop-filter: blur(10px);
-                        -webkit-backdrop-filter: blur(10px);
-                        border: 1px solid rgba(255, 255, 255, 0.3);
-                        border-radius: 16px;
-                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-                        text-align: center;
-                    ">
-                        <p style="margin-bottom: 15px; font-size: 0.9rem; color: #636e72; font-family: 'Noto Serif SC', serif;">
-                            喜欢：
-                        </p>
-                        <div 
-                          data-lyket-type="like" 
-                          data-lyket-id="{{ page.title | slugify }}" 
-                          data-lyket-namespace="blog"
-                          data-lyket-template="twitter"
-                          data-lyket-color="#c0392b"
-                        ></div>
-                    </div>
-                </div>
             </div>
             
             <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
@@ -84,16 +77,24 @@
             </div>
         </article>
 
-       <div id="cusdis_wrapper" style="margin-top: 50px; margin-bottom: 60px; padding: 30px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-            <h3 style="margin-top: 0; margin-bottom: 25px; color: #2d3436; font-size: 1.3rem;">发表评论</h3>
-
-            <div id="cusdis_thread"
-                data-host="https://cusdis.com"
-                data-app-id="9ed3bc87-8c4b-40ae-afa6-907fb09cbf19"
-                data-page-id="{{ page.title | slugify }}" 
-                data-page-url="{{ site.url }}{{ page.url }}"
-                data-page-title="{{ page.title }}"
-            ></div>
+        <!-- Giscus 评论 + 点赞区（一体化） -->
+        <div class="giscus-wrapper">
+            <h3>评论与互动</h3>
+            <script src="https://giscus.app/client.js"
+                    data-repo="4234532/YIFAN"
+                    data-repo-id="R_kgDORKpgJw"
+                    data-category="General"
+                    data-category-id="DIC_kwDORKpgJ84C3rf5"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="bottom"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    crossorigin="anonymous"
+                    async>
+            </script>
         </div>
         
     </div>
