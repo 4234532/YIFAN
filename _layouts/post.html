@@ -6,7 +6,7 @@
     <title>{{ page.title }} | YIFAN</title>
 
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    <script src="https://cusdis.com/js/cusdis.es.js"></script>
 
     <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -250,6 +250,13 @@
         // ESC 键关闭灯箱
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeLightbox();
+        });
+
+        // 手动初始化 Cusdis，确保评论区正常渲染
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.CUSDIS) {
+                window.CUSDIS.initial();
+            }
         });
     </script>
 </body>
